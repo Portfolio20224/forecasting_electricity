@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+.env
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Base de données
+*.db
+*.sqlite
+
+# Données
+output/
+outputs/
+
+# Modèles entraînés
+models/*.pkl
+models/*.h5
+
+
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Spécial
+ui/
+train.py
