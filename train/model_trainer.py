@@ -40,7 +40,7 @@ class ConsumptionModelTrainer:
         """Compile the model."""
 
         if self.model is None:
-            raise ValueError("Modèle non construit. Appelez build_model() d'abord.")
+            raise ValueError("Model no build. call build_model() frist")
         
         self.model.compile(
             optimizer=Adam(learning_rate=0.001), loss='mae', metrics=['mae','mse']
@@ -48,9 +48,9 @@ class ConsumptionModelTrainer:
         return self
     
     def show_summary(self):
-        """Affiche le résumé du modèle"""
+        """Print summary model"""
         if self.model is None:
-            raise ValueError("Modèle non construit.")
+            raise ValueError("Model no build.")
         self.model.summary()
         return self
     
@@ -63,7 +63,7 @@ class ConsumptionModelTrainer:
     ):
         """Training model"""
         if self.model is None:
-            raise ValueError("Modèle non compilé. Appelez compile_model() d'abord.")
+            raise ValueError("Not Compiled. Call compile_model() first.")
         
         es = EarlyStopping(
             monitor='val_loss', 
