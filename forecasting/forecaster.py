@@ -49,7 +49,15 @@ class EnergyForecaster:
         current_date = pd.to_datetime(start_date)
         final_date = pd.to_datetime(end_date)
         full_data = self._prepare_features_new_data( elec_consum_path, weather_data_path)
-        FEATURES = self.feature_columns  # sauvegardées au training
+
+        data_max_date = full_data.index.max()
+
+        if current_date > data_max_date:
+            raise ValueError(
+                f"Start date {current_date.date()} is after last available data "
+                f"({data_max_date.date()})"
+            )
+        FEATURES = self.feature_columns
 
         while current_date <= final_date:
             input_data = (
