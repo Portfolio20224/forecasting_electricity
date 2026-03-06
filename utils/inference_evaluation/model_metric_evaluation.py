@@ -8,7 +8,7 @@ def evaluate_model(y_true, y_pred, dataset_name):
     r2 = r2_score(y_true, y_pred)
 
     print(f"\n{'='*50}")
-    print(f"Performance sur {dataset_name}:")
+    print(f"Performances on {dataset_name}:")
     print(f"{'='*50}")
     print(f"MSE: {mse:.6f}")
     print(f"RMSE: {rmse:.6f}")

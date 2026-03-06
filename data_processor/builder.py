@@ -117,6 +117,12 @@ class DataSplitter:
         """
         train_size = int(len(X) * self.train_ratio)
         val_size = int(len(X) * self.val_ratio)
+        if train_size == 0:
+            raise ValueError(
+                f"Train split is empty. Dataset has {len(X)} samples but "
+                f"train_ratio={self.train_ratio} yields 0 training samples. "
+                f"Use a larger dataset or increase train_ratio."
+            )
         
         self.splits = {
             'X_train_raw': X[:train_size],
@@ -318,10 +324,18 @@ class TargetScalerSeq2Seq:
         Returns:
         Scaled targets
         """
+        if y_train.size == 0:
+            raise ValueError(
+                f"y_train is empty. Your dataset has too few samples for the "
+                f"current window/horizon settings. "
+                f"Got {y_train.shape[0]} training samples, need at least 1."
+            )
         y_train_scaled = self.scaler.fit_transform(y_train.reshape(-1, 1)).reshape(-1, self.horizon, 1)
-        y_val_scaled = self.scaler.transform(y_val.reshape(-1, 1)).reshape(-1, self.horizon, 1)
-        y_test_scaled = self.scaler.transform(y_test.reshape(-1, 1)).reshape(-1, self.horizon, 1)
-        
+        y_val_scaled, y_test_scaled = y_val, y_test
+        if y_val.size>0:
+            y_val_scaled = self.scaler.transform(y_val.reshape(-1, 1)).reshape(-1, self.horizon, 1)
+        if y_test.size>0:
+            y_test_scaled = self.scaler.transform(y_test.reshape(-1, 1)).reshape(-1, self.horizon, 1)
         return y_train_scaled, y_val_scaled, y_test_scaled
     
     def transform(self, y):

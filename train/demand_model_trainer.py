@@ -68,6 +68,7 @@ class DemandModelTrainer:
         y_train,
         X_val=None,
         y_val=None,
+        epochs=100
     ):
         """Training model"""
         if self.model is None:
@@ -83,7 +84,7 @@ class DemandModelTrainer:
         if X_val is None:
           self.history = self.model.fit(
               X_train, y_train,
-              epochs=100,
+              epochs=epochs,
               batch_size=32,
               callbacks=[es],
               verbose=1
@@ -92,7 +93,7 @@ class DemandModelTrainer:
         self.history = self.model.fit(
             X_train, y_train,
             validation_data=(X_val, y_val),
-            epochs=100,
+            epochs=epochs,
             batch_size=32,
             callbacks=[es],
             verbose=1

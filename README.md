@@ -30,6 +30,8 @@ FORECASTING_ELECTRIC/
 │   ├── builder.py                   # Feature engineering
 │   └── processor.py                  # Preprocessing
 │
+├── reports/                      # Prediction module
+│   └── Energy_Forecasting_Report.pdf # EDA, Training, Daignosi Models
 ├── forecasting/                      # Prediction module
 │   ├── __init__.py
 │   └── forecaster.py                  # Main forecasting class
