@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+.git/
+.gitignore
+README.md
+notebooks/*.ipynb
+notebooks/.ipynb_checkpoints/
+reports/
+forecasting/
+train/
+forecasts.csv
+forecasts_past.csv
