@@ -21,7 +21,7 @@ ipykernel = "^7.2.0"
 fastapi = "^0.135.2"
 uvicorn = "^0.42.0"
 pydantic = "^2.12.5"
-prometheus-fastapi-instrumentator = "^7.1.0"
+prometheus-client = "^0.24.1"
 
 
 [tool.poetry.group.dev.dependencies]
