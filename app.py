@@ -8,7 +8,7 @@ import time
 import logging
 from tensorflow.keras.models import load_model
 from data_processor import DataPreprocessor
-from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
+from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST, Gauge
 from fastapi.responses import Response
 
 logging.basicConfig(level=logging.INFO)
@@ -25,6 +25,18 @@ REQUEST_COUNT = Counter(
 REQUEST_LATENCY = Histogram(
     "forecast_request_duration_seconds",
     "Durée des requêtes en secondes"
+)
+FORECAST_MEAN = Gauge(
+    "forecast_mean_kw",
+    "Moyenne des prédictions en kW"
+)
+FORECAST_MIN = Gauge(
+    "forecast_min_kw",
+    "Valeur minimale prédite en kW"
+)
+FORECAST_MAX = Gauge(
+    "forecast_max_kw",
+    "Valeur maximale prédite en kW"
 )
 
 app = FastAPI(title="Energy Forecasting API")
@@ -101,6 +113,15 @@ def forecast(req: ForecastRequest):
     logger.info(f"Prédiction terminée en {duration:.2f}s · {len(unique)} jours générés")
     REQUEST_COUNT.labels(method="POST", status="200").inc()
     REQUEST_LATENCY.observe(duration)
+
+    values = [p["forecast_kW"] for p in unique]
+    FORECAST_MEAN.set(round(sum(values) / len(values), 2))
+    FORECAST_MIN.set(min(values))
+    FORECAST_MAX.set(max(values))
+
+    logger.info(f"Stats prédictions → mean: {FORECAST_MEAN._value.get():.1f} kW, "
+                f"min: {FORECAST_MIN._value.get():.1f} kW, "
+                f"max: {FORECAST_MAX._value.get():.1f} kW")
 
     return ForecastResponse(predictions=unique)
 
