@@ -2,8 +2,32 @@
 
 Electricity consumption forecasting project with a production-ready MLOps pipeline.
 
+## 💡 Business Context
+
+### Why this project?
+
+Electricity is a non-storable resource. Grid operators, energy suppliers, and large industrial consumers must anticipate demand in advance to avoid two costly situations: over-production (wasted energy, financial losses) and under-production (grid instability, penalties, supply cuts).
+
+Traditional forecasting methods (SARIMA, expert rules) struggle to capture complex patterns such as weather effects, public holidays, or long-term consumption trends. This project addresses that gap with a deep learning approach combined with a production-ready deployment pipeline.
+
+### For whom?
+
+| Persona | Use case |
+|---------|----------|
+| **Grid operators** | Plan production capacity 7 days ahead |
+| **Energy suppliers** | Optimize procurement on electricity markets |
+| **Industrial consumers** | Schedule high-consumption processes during off-peak hours |
+| **Smart building managers** | Automate HVAC and equipment based on predicted demand |
+
+### Business impact
+
+- **Cost reduction** — a 1% improvement in forecast accuracy can represent hundreds of thousands of euros in avoided over/under-production costs at scale
+- **Operational efficiency** — automated 7-day forecasts replace manual processes and free up analyst time
+- **Scalability** — the REST API allows any internal tool or third-party system to consume forecasts programmatically, without data science expertise
+
 ## 📋 Table of Contents
 
+- [Business Context](#business-context)
 - [Overview](#overview)
 - [Project Structure](#project-structure)
 - [Installation](#installation)
@@ -227,4 +251,4 @@ All requests are also logged in **GCP Cloud Logging** with structured logs inclu
 
 | Model | Resolution | Horizon | Architecture |
 |-------|------------|---------|--------------|
-| Daily | 1 day | 7 days | GRU |
+| Daily | 1 day | 7 days | LSTM |
